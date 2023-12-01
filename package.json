@@ -1,0 +1,22 @@
+{
+  "name": "class_insights_be",
+  "version": "1.0.0",
+  "description": "ClassInsights: Elevate your educational experience with our comprehensive School ERP system. Gain real-time insights into attendance, grades, and more. Fostering transparency and collaboration, we empower educators, administrators, and parents for student success.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ajv": "^8.12.0",
+    "aws-sdk": "^2.1509.0",
+    "mongoose": "^8.0.2",
+    "serverless": "^3.38.0",
+    "serverless-bundle": "^6.1.0",
+    "serverless-dotenv-plugin": "^1.1.5"
+  },
+  "devDependencies": {
+    "serverless-offline": "^13.3.0"
+  }
+}

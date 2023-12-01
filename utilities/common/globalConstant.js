@@ -1,0 +1,17 @@
+export const GLOBAL_CONSTANT = {
+  METHOD_NAME: {
+    DB_HANDLER: "DB Handler",
+    ACTION_HANDLER: "DB Action Handler",
+  },
+  ERROR_MESSAGES: {
+    DATA_NOT_FOUND: "Data not found",
+    HANDLER_ERROR: "Error in handler",
+    DB_HANDLER_ERROR: "Error in DB handler main",
+    CONNECTION_ERROR: "Error in DB connection",
+    VALIDATION_ERROR: "Validation error",
+  },
+  INFO_MESSAGES: {
+    EVENT: "Logging event",
+    PROCESS_EVENT: "Process event called with event",
+  },
+};

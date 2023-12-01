@@ -1,0 +1,24 @@
+serverlessConfiguration:
+  runtime: nodejs18.x
+  versionFunctions: false
+  stage: ${opt:stage, 'dev'}
+  region: ${env:AWS_REGION, 'ap-south-1'}
+  timeout: 30
+
+  environment:
+    stageSpecificData:
+      dev:
+        defaultMemorySize: 128
+      uat:
+        defaultMemorySize: 128
+        # authorizerArn: arn:aws:lambda:us-west-2:385221134016:function:SPA-Auth-uat-userAuthorizer
+      prod:
+        defaultMemorySize: 256
+        # authorizerArn: arn:aws:lambda:us-west-2:385221134016:function:SPA-Auth-prod-userAuthorizer
+
+    authorizerType: request
+    authorizerResultTtlInSeconds: 0
+    authorizerIdentitySource: method.request.header.Authorization
+    # redisHost: 
+    # redisPort: 6379
+

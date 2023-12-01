@@ -1,0 +1,68 @@
+service: class-insights-auth
+#file: noinspection YAMLSchemaValidation,YAMLSchemaValidation,YAMLSchemaValidation,YAMLSchemaValidation
+frameworkVersion: "3"
+version: 1.0.1
+commonData: ${file(../../serverless.common.yml)}
+
+package:
+  individually: true
+
+plugins:
+  - serverless-offline
+  - serverless-bundle
+  - serverless-dotenv-plugin
+	
+custom:
+  dotenv:
+    # default: project root
+    path: ../../.env
+
+provider:
+  name: aws
+  runtime: ${self:commonData.serverlessConfiguration.runtime}
+  versionFunctions: ${self:commonData.serverlessConfiguration.versionFunctions}
+  stage: ${self:commonData.serverlessConfiguration.stage}
+  region: ${self:commonData.serverlessConfiguration.region}
+  memorySize: ${self:commonData.serverlessConfiguration.environment.stageSpecificData.${self:provider.environment.stage}.defaultMemorySize}
+  timeout: ${self:commonData.serverlessConfiguration.timeout}
+
+  environment:
+    stage: ${self:commonData.serverlessConfiguration.stage}
+    accountRegion: ${self:commonData.serverlessConfiguration.region}
+    serviceUrlIdentifier: auth
+
+  tracing:
+    apiGateway: true
+    lambda: true
+  apiGateway:
+    metrics: true
+  logs:
+    http:
+      level: ERROR
+
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - xray:PutTraceSegments
+        - xray:PutTelemetryRecords
+        - s3:GetObject
+        - s3:PutObject
+      Resource: "*"
+
+functions:
+  registerSchool:
+    handler: handlers/registerSchool.registerSchool
+    events:
+      - http:
+          path: ${self:provider.environment.serviceUrlIdentifier}/registerSchool
+          method: post
+          cors: true
+          # authorizer:
+          #   type: ${self:provider.environment.authorizerType}
+          #   arn: ${self:provider.environment.authorizerArn}
+          #   resultTtlInSeconds: ${self:provider.environment.authorizerResultTtlInSeconds}
+          #   identitySource: ${self:provider.environment.authorizerIdentitySource}
+          response:
+            headers:
+              X-Content-Type-Options: "'nosniff'"
+              Access-Control-Allow-Origin: "'*'"
