@@ -18,7 +18,6 @@ const validateSchema = (schema, data) => {
     } else {
       path = "";
     }
-    console.log(ajv.errors)
     return { isError: true, message: ajv.errors[0]["message"] + path };
   } catch (err) {
     throw err;

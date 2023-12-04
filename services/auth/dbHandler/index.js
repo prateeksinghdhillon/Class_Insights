@@ -1,5 +1,9 @@
 import { GLOBAL_CONSTANT } from "../../../utilities/common/globalConstant";
 import { errorLog, infoLog } from "../../../utilities/logging/log";
+import { AUTH_CONSTANT } from "../common/constants";
+import { getSchoolById } from "./actionHandler/getSchoolById";
+import { saveOtp } from "./actionHandler/saveOtp";
+import { saveRegisterSchool } from "./actionHandler/saveRegisterSchool";
 import { makeDBConnection } from "./connection";
 
 export async function main(event) {
@@ -23,5 +27,11 @@ const processEvent = async (event) => {
     message: GLOBAL_CONSTANT.INFO_MESSAGES.PROCESS_EVENT,
   });
   switch (event.actionType) {
+    case AUTH_CONSTANT.ACTION_TYPE.REGISTER_SCHOOL:
+      return saveRegisterSchool(event);
+    case AUTH_CONSTANT.ACTION_TYPE.GET_SCHOOL_BY_ID:
+      return getSchoolById(event);
+    case AUTH_CONSTANT.ACTION_TYPE.SAVE_OTP:
+      return saveOtp(event);
   }
 };

@@ -1,4 +1,4 @@
-export const successResponse = (message, data) => {
+export const successResponse = (message, data = []) => {
   let response = {
     statusCode: 200,
     body: JSON.stringify({
@@ -33,7 +33,7 @@ export const internalServer = (message) => {
     body: JSON.stringify({
       message: message,
     }),
-    statusCode: 400,
+    statusCode: 500,
   };
   return response;
 };

@@ -3,13 +3,12 @@ let connection = null;
 
 import { internalServer } from "../../../utilities/response";
 import { GLOBAL_CONSTANT } from "../../../utilities/common/globalConstant";
+import { errorLog } from "../../../utilities/logging/log";
 export async function makeDBConnection() {
   try {
     if (!connection) {
       connection = await connect(process.env.DB_URL, {
-        useNewUrlParser: true,
         useUnifiedTopology: true,
-        useFindAndModify: false,
       });
     }
     return "connection established";

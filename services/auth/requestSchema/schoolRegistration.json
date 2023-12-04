@@ -23,7 +23,8 @@
       "maxLength": 50
     },
     "addressLine2": {
-      "type": "string"
+      "type": "string",
+      "maxLength": 50
     },
     "city": {
       "type": "string",
@@ -35,7 +36,8 @@
     },
     "pinCode": {
       "type": "string",
-      "minLength": 2
+      "minLength": 2,
+      "pattern": "^\\d*$"
     },
     "country": {
       "type": "string",
@@ -43,7 +45,8 @@
     },
     "establishedYear": {
       "type": "string",
-      "minLength": 4
+      "minLength": 4,
+      "pattern": "^\\d*$"
     },
     "enlister": {
       "type": "string",

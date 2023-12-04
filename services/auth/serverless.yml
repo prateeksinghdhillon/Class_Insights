@@ -66,3 +66,26 @@ functions:
             headers:
               X-Content-Type-Options: "'nosniff'"
               Access-Control-Allow-Origin: "'*'"
+  addAdminPassword:
+    handler: handlers/addAdminPassword.addAdminPassword
+    events:
+      - http:
+          path: ${self:provider.environment.serviceUrlIdentifier}/addAdminPassword
+          method: post
+          cors: true
+          response:
+            headers:
+              X-Content-Type-Options: "'nosniff'"
+              Access-Control-Allow-Origin: "'*'"
+  verifyOtp:
+    handler: handlers/verifyOtp.verifyOtp
+    events:
+      - http:
+          path: ${self:provider.environment.serviceUrlIdentifier}/verifyOtp
+          method: post
+          cors: true
+          response:
+            headers:
+              X-Content-Type-Options: "'nosniff'"
+              Access-Control-Allow-Origin: "'*'"
+  

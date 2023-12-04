@@ -1,6 +1,9 @@
 import { Schema, model } from "mongoose";
 const schema = new Schema(
   {
+    schoolId: {
+      type: Number,
+    },
     schoolName: {
       type: String,
     },
@@ -45,4 +48,4 @@ const schema = new Schema(
     timestamps: true,
   }
 );
-export const Registered_Schools = model("registeredschool", schema);
+export const RegisteredSchools = model("registeredschool", schema);
