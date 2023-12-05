@@ -27,7 +27,7 @@ export const savePassword = async (event) => {
       },
       { new: true }
     );
-    const idCount = await IdCount.find(
+    const idCount = await IdCount.findOneAndUpdate(
       { countType: "userIdCount" },
       { $inc: { sequenceValue: 1 } }
     );

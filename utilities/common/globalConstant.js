@@ -17,4 +17,5 @@ export const GLOBAL_CONSTANT = {
     ACTION_HANDLER: "Action hadler logging",
   },
   OTP_EXPIRE_TIME: "300s",
+  SESSION_EXPIRE: 60 * 60 * 24,
 };

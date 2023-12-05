@@ -18,12 +18,14 @@ export const AUTH_CONSTANT = {
     SCHOOL_NOT_FOUND: "School not found",
     REGISTER_SCHOOL_HANDLER: "Error in register school",
     ADD_ADMIN_PASSWORD_USER: "User not found for this school Id",
-    WORNG_SCHOOL_ID: "Wrong school Id",
-    WORNG_OTP: "Incorrect OTP",
+    WRONG_SCHOOL_ID: "Wrong school Id",
+    WRONG_OTP: "Incorrect OTP",
+    WRONG_PASSWORD: "Incorrect password",
   },
   SUCCESS_MESSAGES: {
     REGISTER_SUCCESS: "School registered successfully",
     OTP_SUCCESS: "OTP sent successfully",
     PASSWORD_CHANGED: "Password changed successfully",
+    LOGGED_IN: "Logged in successfully",
   },
 };

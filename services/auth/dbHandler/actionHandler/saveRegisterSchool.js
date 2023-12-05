@@ -13,7 +13,7 @@ export const saveRegisterSchool = async (event) => {
       message: GLOBAL_CONSTANT.INFO_MESSAGES.ACTION_HANDLER,
     });
 
-    const idCount = await IdCount.find(
+    const idCount = await IdCount.findOneAndUpdate(
       { countType: "schoolIdCount" },
       { $inc: { sequenceValue: 1 } }
     );

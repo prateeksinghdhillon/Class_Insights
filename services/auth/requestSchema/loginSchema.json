@@ -19,7 +19,7 @@
     "additionalProperties": false,
     "required": [
         "schoolId",
-        "password",
-        "emailId"
+        "emailId",
+        "password"
     ]
 }
