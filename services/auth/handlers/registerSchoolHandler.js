@@ -42,7 +42,6 @@ export const registerSchool = async (event) => {
       data: err.message,
       message: GLOBAL_CONSTANT.ERROR_MESSAGES.HANDLER_ERROR,
     });
-    console.log(err.message);
     throw internalServer(GLOBAL_CONSTANT.ERROR_MESSAGES.HANDLER_ERROR);
   }
 };

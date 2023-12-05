@@ -51,7 +51,7 @@ provider:
 
 functions:
   registerSchool:
-    handler: handlers/registerSchool.registerSchool
+    handler: handlers/registerSchoolHandler.registerSchool
     events:
       - http:
           path: ${self:provider.environment.serviceUrlIdentifier}/registerSchool
