@@ -2,11 +2,16 @@ export const AUTH_CONSTANT = {
   METHOD_NAME: {
     REGISTER_SCHOOL: "registerSchool",
     ADD_ADMIN_PASSWORD: "addAdminPassword",
+    VERIFY_OTP: "verifyOtp",
+    LOGIN: "login",
   },
   ACTION_TYPE: {
     REGISTER_SCHOOL: "registerSchool",
     GET_SCHOOL_BY_ID: "getSchoolByID",
     SAVE_OTP: "saveOtp",
+    VERIFY_OTP: "verifyOtp",
+    SAVE_PASSWORD: "savePassword",
+    GET_USER: "getUser",
   },
   ERROR_MESSAGES: {
     USER_NOT_FOUND: "User not found",
@@ -14,9 +19,11 @@ export const AUTH_CONSTANT = {
     REGISTER_SCHOOL_HANDLER: "Error in register school",
     ADD_ADMIN_PASSWORD_USER: "User not found for this school Id",
     WORNG_SCHOOL_ID: "Wrong school Id",
+    WORNG_OTP: "Incorrect OTP",
   },
   SUCCESS_MESSAGES: {
     REGISTER_SUCCESS: "School registered successfully",
     OTP_SUCCESS: "OTP sent successfully",
+    PASSWORD_CHANGED: "Password changed successfully",
   },
 };

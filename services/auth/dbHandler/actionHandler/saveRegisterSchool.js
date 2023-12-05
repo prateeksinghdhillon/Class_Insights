@@ -21,7 +21,6 @@ export const saveRegisterSchool = async (event) => {
     //transformation
     event.query.enlisterEmail = event.query.enlisterEmail.toLowerCase();
     const result = await RegisteredSchools.create(event.query);
-    console.log(result);
 
     return result ? { isSuccess: true } : { isSuccess: false };
   } catch (err) {

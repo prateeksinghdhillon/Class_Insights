@@ -3,7 +3,7 @@ import { GLOBAL_CONSTANT } from "../../common/globalConstant";
 const schema = new Schema(
   {
     otp: {
-      type: Number,
+      type: String,
     },
     emailId: {
       type: String,
@@ -11,7 +11,14 @@ const schema = new Schema(
     password: {
       type: String,
     },
-    expireAt: { type: Date, default: Date.now, index: { expires: GLOBAL_CONSTANT.OTP_EXPIRE_TIME } },
+    schoolId: {
+      type: Number,
+    },
+    expireAt: {
+      type: Date,
+      default: Date.now,
+      index: { expires: GLOBAL_CONSTANT.OTP_EXPIRE_TIME },
+    },
   },
   {
     timestamps: true,

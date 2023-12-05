@@ -6017,23 +6017,87 @@ __webpack_require__.r(__webpack_exports__);
 const AUTH_CONSTANT = {
   METHOD_NAME: {
     REGISTER_SCHOOL: "registerSchool",
-    ADD_ADMIN_PASSWORD: "addAdminPassword"
+    ADD_ADMIN_PASSWORD: "addAdminPassword",
+    VERIFY_OTP: "verifyOtp"
   },
   ACTION_TYPE: {
     REGISTER_SCHOOL: "registerSchool",
     GET_SCHOOL_BY_ID: "getSchoolByID",
-    SAVE_OTP: "saveOtp"
+    SAVE_OTP: "saveOtp",
+    VERIFY_OTP: "verifyOtp",
+    SAVE_PASSWORD: "savePassword"
   },
   ERROR_MESSAGES: {
     USER_NOT_FOUND: "User not found",
     SCHOOL_NOT_FOUND: "School not found",
     REGISTER_SCHOOL_HANDLER: "Error in register school",
     ADD_ADMIN_PASSWORD_USER: "User not found for this school Id",
-    WORNG_SCHOOL_ID: "Wrong school Id"
+    WORNG_SCHOOL_ID: "Wrong school Id",
+    WORNG_OTP: "Incorrect OTP"
   },
   SUCCESS_MESSAGES: {
     REGISTER_SUCCESS: "School registered successfully",
-    OTP_SUCCESS: "OTP sent successfully"
+    OTP_SUCCESS: "OTP sent successfully",
+    PASSWORD_CHANGED: "Password changed successfully"
+  }
+};
+
+/***/ }),
+
+/***/ "../../../services/auth/dbHandler/actionHandler/getOtpDetails.js":
+/*!***********************************************************************!*\
+  !*** ../../../services/auth/dbHandler/actionHandler/getOtpDetails.js ***!
+  \***********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   getOtpDetails: () => (/* binding */ getOtpDetails)
+/* harmony export */ });
+/* harmony import */ var source_map_support_register__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! source-map-support/register */ "../../source-map-support/register.js");
+/* harmony import */ var source_map_support_register__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(source_map_support_register__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _utilities_common_globalConstant__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../utilities/common/globalConstant */ "../../../utilities/common/globalConstant.js");
+/* harmony import */ var _utilities_dbModels_auth_otpStore_modal__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../utilities/dbModels/auth/otpStore.modal */ "../../../utilities/dbModels/auth/otpStore.modal.js");
+/* harmony import */ var _utilities_logging_log__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../utilities/logging/log */ "../../../utilities/logging/log.js");
+/* harmony import */ var _utilities_response__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../utilities/response */ "../../../utilities/response/index.js");
+/* harmony import */ var _common_constants__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../common/constants */ "../../../services/auth/common/constants.js");
+
+
+
+
+
+
+const getOtpDetails = async event => {
+  try {
+    (0,_utilities_logging_log__WEBPACK_IMPORTED_MODULE_3__.infoLog)({
+      apiMethod: _common_constants__WEBPACK_IMPORTED_MODULE_5__.AUTH_CONSTANT.METHOD_NAME.VERIFY_OTP,
+      data: event,
+      message: _utilities_common_globalConstant__WEBPACK_IMPORTED_MODULE_1__.GLOBAL_CONSTANT.INFO_MESSAGES.ACTION_HANDLER
+    });
+    console.log(event);
+    const result = await _utilities_dbModels_auth_otpStore_modal__WEBPACK_IMPORTED_MODULE_2__.OtpStore.findOne({
+      $and: [{
+        schoolId: event.query.schoolId
+      }, {
+        emailId: event.query.emailId
+      }]
+    });
+    console.log(result);
+    console.log("---------");
+    return result ? {
+      isSuccess: true,
+      data: result
+    } : {
+      isSuccess: false
+    };
+  } catch (err) {
+    (0,_utilities_logging_log__WEBPACK_IMPORTED_MODULE_3__.errorLog)({
+      apiMethod: _common_constants__WEBPACK_IMPORTED_MODULE_5__.AUTH_CONSTANT.METHOD_NAME.VERIFY_OTP,
+      data: err,
+      message: _utilities_common_globalConstant__WEBPACK_IMPORTED_MODULE_1__.GLOBAL_CONSTANT.ERROR_MESSAGES.AGGERATE_QUERY_ERROR + _common_constants__WEBPACK_IMPORTED_MODULE_5__.AUTH_CONSTANT.ACTION_TYPE.VERIFY_OTP
+    });
+    throw (0,_utilities_response__WEBPACK_IMPORTED_MODULE_4__.internalServer)(_utilities_common_globalConstant__WEBPACK_IMPORTED_MODULE_1__.GLOBAL_CONSTANT.ERROR_MESSAGES.AGGERATE_QUERY_ERROR + _common_constants__WEBPACK_IMPORTED_MODULE_5__.AUTH_CONSTANT.ACTION_TYPE.VERIFY_OTP);
   }
 };
 
@@ -6070,11 +6134,9 @@ const getSchoolById = async event => {
       data: event,
       message: _utilities_common_globalConstant__WEBPACK_IMPORTED_MODULE_1__.GLOBAL_CONSTANT.INFO_MESSAGES.ACTION_HANDLER
     });
-    console.log(event);
     const result = await _utilities_dbModels_auth_registeredSchool_modal__WEBPACK_IMPORTED_MODULE_2__.RegisteredSchools.findOne({
       schoolId: event.query
     });
-    console.log(result);
     return result ? {
       isSuccess: true,
       data: result
@@ -6128,7 +6190,6 @@ const saveOtp = async event => {
     //transformation
     event.query.emailId = event.query.emailId.toLowerCase();
     const result = await _utilities_dbModels_auth_otpStore_modal__WEBPACK_IMPORTED_MODULE_2__.OtpStore.create(event.query);
-    console.log(result);
     return result ? {
       isSuccess: true
     } : {
@@ -6141,6 +6202,76 @@ const saveOtp = async event => {
       message: _utilities_common_globalConstant__WEBPACK_IMPORTED_MODULE_1__.GLOBAL_CONSTANT.ERROR_MESSAGES.AGGERATE_QUERY_ERROR + _common_constants__WEBPACK_IMPORTED_MODULE_5__.AUTH_CONSTANT.ACTION_TYPE.SAVE_OTP
     });
     throw (0,_utilities_response__WEBPACK_IMPORTED_MODULE_4__.internalServer)(_utilities_common_globalConstant__WEBPACK_IMPORTED_MODULE_1__.GLOBAL_CONSTANT.ERROR_MESSAGES.AGGERATE_QUERY_ERROR + _common_constants__WEBPACK_IMPORTED_MODULE_5__.AUTH_CONSTANT.ACTION_TYPE.SAVE_OTP);
+  }
+};
+
+/***/ }),
+
+/***/ "../../../services/auth/dbHandler/actionHandler/savePassword.js":
+/*!**********************************************************************!*\
+  !*** ../../../services/auth/dbHandler/actionHandler/savePassword.js ***!
+  \**********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   savePassword: () => (/* binding */ savePassword)
+/* harmony export */ });
+/* harmony import */ var source_map_support_register__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! source-map-support/register */ "../../source-map-support/register.js");
+/* harmony import */ var source_map_support_register__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(source_map_support_register__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _utilities_common_globalConstant__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../utilities/common/globalConstant */ "../../../utilities/common/globalConstant.js");
+/* harmony import */ var _utilities_dbModels_auth_registeredSchool_modal__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../utilities/dbModels/auth/registeredSchool.modal */ "../../../utilities/dbModels/auth/registeredSchool.modal.js");
+/* harmony import */ var _utilities_dbModels_auth_users_modal__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../utilities/dbModels/auth/users.modal */ "../../../utilities/dbModels/auth/users.modal.js");
+/* harmony import */ var _utilities_logging_log__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../utilities/logging/log */ "../../../utilities/logging/log.js");
+/* harmony import */ var _utilities_response__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../utilities/response */ "../../../utilities/response/index.js");
+/* harmony import */ var _common_constants__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../common/constants */ "../../../services/auth/common/constants.js");
+
+
+
+
+
+
+
+const savePassword = async event => {
+  try {
+    (0,_utilities_logging_log__WEBPACK_IMPORTED_MODULE_4__.infoLog)({
+      apiMethod: _common_constants__WEBPACK_IMPORTED_MODULE_6__.AUTH_CONSTANT.METHOD_NAME.VERIFY_OTP,
+      data: event,
+      message: _utilities_common_globalConstant__WEBPACK_IMPORTED_MODULE_1__.GLOBAL_CONSTANT.INFO_MESSAGES.ACTION_HANDLER
+    });
+    console.log(event);
+    console.log("00000===================");
+    const result = await _utilities_dbModels_auth_registeredSchool_modal__WEBPACK_IMPORTED_MODULE_2__.RegisteredSchools.findOneAndUpdate({
+      $and: [{
+        schoolId: event.query.schoolId
+      }, {
+        enlisterEmail: event.query.emailId
+      }]
+    }, {
+      $set: {
+        enlisterPassword: event.query.password
+      }
+    }, {
+      new: true
+    });
+    console.log(result);
+    event.query["role"] = "admin";
+    let userRes = await (0,_utilities_dbModels_auth_users_modal__WEBPACK_IMPORTED_MODULE_3__.UserModel)(event.query.schoolId).create(event.query);
+    // const result =
+    return result && userRes ? {
+      isSuccess: true
+    } : {
+      isSuccess: false
+    };
+  } catch (err) {
+    console.log(err);
+    (0,_utilities_logging_log__WEBPACK_IMPORTED_MODULE_4__.errorLog)({
+      apiMethod: _common_constants__WEBPACK_IMPORTED_MODULE_6__.AUTH_CONSTANT.METHOD_NAME.VERIFY_OTP,
+      data: err,
+      message: _utilities_common_globalConstant__WEBPACK_IMPORTED_MODULE_1__.GLOBAL_CONSTANT.ERROR_MESSAGES.AGGERATE_QUERY_ERROR + _common_constants__WEBPACK_IMPORTED_MODULE_6__.AUTH_CONSTANT.ACTION_TYPE.VERIFY_OTP
+    });
+    throw (0,_utilities_response__WEBPACK_IMPORTED_MODULE_5__.internalServer)(_utilities_common_globalConstant__WEBPACK_IMPORTED_MODULE_1__.GLOBAL_CONSTANT.ERROR_MESSAGES.AGGERATE_QUERY_ERROR + _common_constants__WEBPACK_IMPORTED_MODULE_6__.AUTH_CONSTANT.ACTION_TYPE.VERIFY_OTP);
   }
 };
 
@@ -6190,7 +6321,6 @@ const saveRegisterSchool = async event => {
     //transformation
     event.query.enlisterEmail = event.query.enlisterEmail.toLowerCase();
     const result = await _utilities_dbModels_auth_registeredSchool_modal__WEBPACK_IMPORTED_MODULE_3__.RegisteredSchools.create(event.query);
-    console.log(result);
     return result ? {
       isSuccess: true
     } : {
@@ -6268,10 +6398,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _utilities_common_globalConstant__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../utilities/common/globalConstant */ "../../../utilities/common/globalConstant.js");
 /* harmony import */ var _utilities_logging_log__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../utilities/logging/log */ "../../../utilities/logging/log.js");
 /* harmony import */ var _common_constants__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../common/constants */ "../../../services/auth/common/constants.js");
-/* harmony import */ var _actionHandler_getSchoolById__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./actionHandler/getSchoolById */ "../../../services/auth/dbHandler/actionHandler/getSchoolById.js");
-/* harmony import */ var _actionHandler_saveOtp__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./actionHandler/saveOtp */ "../../../services/auth/dbHandler/actionHandler/saveOtp.js");
-/* harmony import */ var _actionHandler_saveRegisterSchool__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./actionHandler/saveRegisterSchool */ "../../../services/auth/dbHandler/actionHandler/saveRegisterSchool.js");
-/* harmony import */ var _connection__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./connection */ "../../../services/auth/dbHandler/connection.js");
+/* harmony import */ var _actionHandler_getOtpDetails__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./actionHandler/getOtpDetails */ "../../../services/auth/dbHandler/actionHandler/getOtpDetails.js");
+/* harmony import */ var _actionHandler_getSchoolById__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./actionHandler/getSchoolById */ "../../../services/auth/dbHandler/actionHandler/getSchoolById.js");
+/* harmony import */ var _actionHandler_saveOtp__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./actionHandler/saveOtp */ "../../../services/auth/dbHandler/actionHandler/saveOtp.js");
+/* harmony import */ var _actionHandler_savePassword__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./actionHandler/savePassword */ "../../../services/auth/dbHandler/actionHandler/savePassword.js");
+/* harmony import */ var _actionHandler_saveRegisterSchool__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./actionHandler/saveRegisterSchool */ "../../../services/auth/dbHandler/actionHandler/saveRegisterSchool.js");
+/* harmony import */ var _connection__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./connection */ "../../../services/auth/dbHandler/connection.js");
+
+
 
 
 
@@ -6282,7 +6416,7 @@ __webpack_require__.r(__webpack_exports__);
 
 async function main(event) {
   try {
-    await (0,_connection__WEBPACK_IMPORTED_MODULE_7__.makeDBConnection)();
+    await (0,_connection__WEBPACK_IMPORTED_MODULE_9__.makeDBConnection)();
     let result = await processEvent(event);
     return result;
   } catch (err) {
@@ -6302,11 +6436,15 @@ const processEvent = async event => {
   });
   switch (event.actionType) {
     case _common_constants__WEBPACK_IMPORTED_MODULE_3__.AUTH_CONSTANT.ACTION_TYPE.REGISTER_SCHOOL:
-      return (0,_actionHandler_saveRegisterSchool__WEBPACK_IMPORTED_MODULE_6__.saveRegisterSchool)(event);
+      return (0,_actionHandler_saveRegisterSchool__WEBPACK_IMPORTED_MODULE_8__.saveRegisterSchool)(event);
     case _common_constants__WEBPACK_IMPORTED_MODULE_3__.AUTH_CONSTANT.ACTION_TYPE.GET_SCHOOL_BY_ID:
-      return (0,_actionHandler_getSchoolById__WEBPACK_IMPORTED_MODULE_4__.getSchoolById)(event);
+      return (0,_actionHandler_getSchoolById__WEBPACK_IMPORTED_MODULE_5__.getSchoolById)(event);
     case _common_constants__WEBPACK_IMPORTED_MODULE_3__.AUTH_CONSTANT.ACTION_TYPE.SAVE_OTP:
-      return (0,_actionHandler_saveOtp__WEBPACK_IMPORTED_MODULE_5__.saveOtp)(event);
+      return (0,_actionHandler_saveOtp__WEBPACK_IMPORTED_MODULE_6__.saveOtp)(event);
+    case _common_constants__WEBPACK_IMPORTED_MODULE_3__.AUTH_CONSTANT.ACTION_TYPE.VERIFY_OTP:
+      return (0,_actionHandler_getOtpDetails__WEBPACK_IMPORTED_MODULE_4__.getOtpDetails)(event);
+    case _common_constants__WEBPACK_IMPORTED_MODULE_3__.AUTH_CONSTANT.ACTION_TYPE.SAVE_PASSWORD:
+      return (0,_actionHandler_savePassword__WEBPACK_IMPORTED_MODULE_7__.savePassword)(event);
   }
 };
 
@@ -6399,13 +6537,16 @@ __webpack_require__.r(__webpack_exports__);
 
 const schema = new mongoose__WEBPACK_IMPORTED_MODULE_1__.Schema({
   otp: {
-    type: Number
+    type: String
   },
   emailId: {
     type: String
   },
   password: {
     type: String
+  },
+  schoolId: {
+    type: Number
   },
   expireAt: {
     type: Date,
@@ -6485,6 +6626,73 @@ const schema = new mongoose__WEBPACK_IMPORTED_MODULE_1__.Schema({
   timestamps: true
 });
 const RegisteredSchools = (0,mongoose__WEBPACK_IMPORTED_MODULE_1__.model)("registeredschool", schema);
+
+/***/ }),
+
+/***/ "../../../utilities/dbModels/auth/users.modal.js":
+/*!*******************************************************!*\
+  !*** ../../../utilities/dbModels/auth/users.modal.js ***!
+  \*******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   UserModel: () => (/* binding */ UserModel)
+/* harmony export */ });
+/* harmony import */ var source_map_support_register__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! source-map-support/register */ "../../source-map-support/register.js");
+/* harmony import */ var source_map_support_register__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(source_map_support_register__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var mongoose__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! mongoose */ "../../mongoose/index.js");
+/* harmony import */ var mongoose__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(mongoose__WEBPACK_IMPORTED_MODULE_1__);
+
+
+const UserModel = schoolId => {
+  const residenceSchema = new mongoose__WEBPACK_IMPORTED_MODULE_1__.Schema({
+    schoolId: {
+      type: Number
+    },
+    // schoolName: {
+    //   type: String,
+    // },
+    // addressLine1: {
+    //   type: String,
+    // },
+    // addressLine2: {
+    //   type: String,
+    // },
+    // city: {
+    //   type: String,
+    // },
+    // pinCode: {
+    //   type: Number,
+    // },
+    // state: {
+    //   type: String,
+    // },
+    // country: {
+    //   type: String,
+    // },
+    // countryCode: {
+    //   type: String,
+    // },
+    contactNumber: {
+      type: String
+    },
+    role: {
+      type: String,
+      enum: ["admin", "superAdmin", "student", "teacher", "parent"]
+    },
+    emailId: {
+      type: String
+    },
+    password: {
+      type: String
+    }
+  }, {
+    timestamps: true
+  });
+  return (0,mongoose__WEBPACK_IMPORTED_MODULE_1__.model)(`${schoolId}.users`, residenceSchema);
+};
 
 /***/ }),
 

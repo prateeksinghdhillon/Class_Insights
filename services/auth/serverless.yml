@@ -88,4 +88,15 @@ functions:
             headers:
               X-Content-Type-Options: "'nosniff'"
               Access-Control-Allow-Origin: "'*'"
+  login:
+    handler: handlers/login.login
+    events:
+      - http:
+          path: ${self:provider.environment.serviceUrlIdentifier}/login
+          method: post
+          cors: true
+          response:
+            headers:
+              X-Content-Type-Options: "'nosniff'"
+              Access-Control-Allow-Origin: "'*'"
   

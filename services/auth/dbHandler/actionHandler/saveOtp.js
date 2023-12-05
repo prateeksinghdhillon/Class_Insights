@@ -15,7 +15,6 @@ export const saveOtp = async (event) => {
     //transformation
     event.query.emailId = event.query.emailId.toLowerCase();
     const result = await OtpStore.create(event.query);
-    console.log(result);
 
     return result ? { isSuccess: true } : { isSuccess: false };
   } catch (err) {

@@ -1,8 +1,10 @@
 import { GLOBAL_CONSTANT } from "../../../utilities/common/globalConstant";
 import { errorLog, infoLog } from "../../../utilities/logging/log";
 import { AUTH_CONSTANT } from "../common/constants";
+import { getOtpDetails } from "./actionHandler/getOtpDetails";
 import { getSchoolById } from "./actionHandler/getSchoolById";
 import { saveOtp } from "./actionHandler/saveOtp";
+import { savePassword } from "./actionHandler/savePassword";
 import { saveRegisterSchool } from "./actionHandler/saveRegisterSchool";
 import { makeDBConnection } from "./connection";
 
@@ -33,5 +35,9 @@ const processEvent = async (event) => {
       return getSchoolById(event);
     case AUTH_CONSTANT.ACTION_TYPE.SAVE_OTP:
       return saveOtp(event);
+    case AUTH_CONSTANT.ACTION_TYPE.VERIFY_OTP:
+      return getOtpDetails(event);
+    case AUTH_CONSTANT.ACTION_TYPE.SAVE_PASSWORD:
+      return savePassword(event);
   }
 };

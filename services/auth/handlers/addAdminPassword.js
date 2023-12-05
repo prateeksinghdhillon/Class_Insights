@@ -18,13 +18,11 @@ export const addAdminPassword = async (event) => {
       data: event,
       message: GLOBAL_CONSTANT.INFO_MESSAGES.EVENT,
     });
-    console.log(event);
     const parsedBody = JSON.parse(event.body);
-    console.log(parsedBody);
     const validateRequest = validateSchema(addAdminPasswordSchema, parsedBody);
     if (validateRequest.isError) {
       errorLog({
-        apiMethod: AUTH_CONSTANT.METHOD_NAME.REGISTER_SCHOOL,
+        apiMethod: AUTH_CONSTANT.METHOD_NAME.ADD_ADMIN_PASSWORD,
         data: GLOBAL_CONSTANT.ERROR_MESSAGES.VALIDATION_ERROR,
         message: validateRequest.message,
       });
@@ -35,13 +33,11 @@ export const addAdminPassword = async (event) => {
       query: parsedBody.schoolId,
     };
     const schooldata = await main(dbQuery);
-    console.log(schooldata);
     if (schooldata.isSuccess) {
       if (schooldata.data.enlisterEmail !== parsedBody.emailId.toLowerCase()) {
         return failResponse(404, AUTH_CONSTANT.ERROR_MESSAGES.USER_NOT_FOUND);
       }
     } else {
-      console.log("herererer");
       return failResponse(404, AUTH_CONSTANT.ERROR_MESSAGES.SCHOOL_NOT_FOUND);
     }
     const otp = process.env.stage === "prod" ? getOtp() : "123456";
@@ -60,7 +56,6 @@ export const addAdminPassword = async (event) => {
       data: err.message,
       message: GLOBAL_CONSTANT.ERROR_MESSAGES.HANDLER_ERROR,
     });
-    console.log(err.message);
     throw internalServer(GLOBAL_CONSTANT.ERROR_MESSAGES.HANDLER_ERROR);
   }
 };
