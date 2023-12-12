@@ -99,4 +99,5 @@ functions:
             headers:
               X-Content-Type-Options: "'nosniff'"
               Access-Control-Allow-Origin: "'*'"
-  
+  authorizerFunc:
+    handler: authHandler/authorizer.main

@@ -11,7 +11,7 @@ export const getOtpDetails = async (event) => {
       data: event,
       message: GLOBAL_CONSTANT.INFO_MESSAGES.ACTION_HANDLER,
     });
-
+    event.query.emailId = event.query.emailId.toLowerCase();
     const result = await OtpStore.findOne({
       $and: [
         { schoolId: event.query.schoolId },

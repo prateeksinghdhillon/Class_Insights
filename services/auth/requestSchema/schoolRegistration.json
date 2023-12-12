@@ -4,8 +4,7 @@
   "properties": {
     "schoolName": {
       "type": "string",
-      "minLength": 4,
-      "pattern": "^[a-z A-Z]*$"
+      "minLength": 4
     },
     "countryCode": {
       "type": "string",

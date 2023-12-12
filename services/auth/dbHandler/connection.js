@@ -7,9 +7,7 @@ import { errorLog } from "../../../utilities/logging/log";
 export async function makeDBConnection() {
   try {
     if (!connection) {
-      connection = await connect(process.env.DB_URL, {
-        useUnifiedTopology: true,
-      });
+      connection = await connect(process.env.DB_URL, {});
     }
     return "connection established";
   } catch (err) {

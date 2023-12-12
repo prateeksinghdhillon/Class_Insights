@@ -19,6 +19,7 @@ export const login = async (event) => {
       data: event,
       message: GLOBAL_CONSTANT.INFO_MESSAGES.EVENT,
     });
+    console.log(process.env);
     const parsedBody = JSON.parse(event.body);
     const validateRequest = validateSchema(loginSchema, parsedBody);
     if (validateRequest.isError) {
@@ -46,7 +47,8 @@ export const login = async (event) => {
     const data = {
       emailId: userData.data.emailId,
       userId: userData.data.userId,
-      role:userData.data.role
+      role: userData.data.role,
+      schoolId: userData.data.schoolId,
     };
     const jwtToken = jwt.sign(data, process.env.key, {
       expiresIn: GLOBAL_CONSTANT.SESSION_EXPIRE,
