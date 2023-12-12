@@ -9,15 +9,16 @@ serverlessConfiguration:
     stageSpecificData:
       dev:
         defaultMemorySize: 128
+        authorizerArn: arn:aws:lambda:ap-south-1:919008000681:function:class-insights-auth-dev-authorizerFunc
       uat:
         defaultMemorySize: 128
-        # authorizerArn: arn:aws:lambda:us-west-2:385221134016:function:SPA-Auth-uat-userAuthorizer
+        # authorizerArn: arn:aws:lambda:ap-south-1:919008000681:function:class-insights-auth-dev-authorizerFunc
       prod:
         defaultMemorySize: 256
         # authorizerArn: arn:aws:lambda:us-west-2:385221134016:function:SPA-Auth-prod-userAuthorizer
 
     authorizerType: request
-    authorizerResultTtlInSeconds: 0
+    authorizerResultTtlInSeconds: 300
     authorizerIdentitySource: method.request.header.Authorization
     # redisHost: 
     # redisPort: 6379

@@ -14,11 +14,6 @@ const schema = new Schema(
     schoolId: {
       type: Number,
     },
-    expireAt: {
-      type: Date,
-      default: Date.now,
-      index: { expires: GLOBAL_CONSTANT.OTP_EXPIRE_TIME },
-    },
   },
   {
     timestamps: true,

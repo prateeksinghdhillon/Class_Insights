@@ -10,6 +10,7 @@ export const GLOBAL_CONSTANT = {
     CONNECTION_ERROR: "Error in DB connection",
     VALIDATION_ERROR: "Validation error",
     AGGERATE_QUERY_ERROR: "Error in DB aggregate query for collection ->",
+    ACTION_FORBIDDED: "Not allowed to perform this action",
   },
   INFO_MESSAGES: {
     EVENT: "Logging event",
