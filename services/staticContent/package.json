@@ -1,0 +1,11 @@
+{
+  "name": "staticcontent",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "serverless offline --reloadHandler"
+  },
+  "author": "",
+  "license": "ISC"
+}
