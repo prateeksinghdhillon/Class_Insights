@@ -10,8 +10,6 @@ export const main = async (event) => {
     } else {
       // let token = event.authorizationToken.includes('Bearer') ?event.authorizationToken.split(' ')[1]:event.authorizationToken;
       let token = event.headers.Authorization;
-      console.log('event',event.headers.Authorization);
-      console.log(key);
       let decode = JWT.verify(token, key);
       console.log(decode);
 

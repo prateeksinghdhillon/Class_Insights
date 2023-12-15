@@ -19,7 +19,6 @@ export const login = async (event) => {
       data: event,
       message: GLOBAL_CONSTANT.INFO_MESSAGES.EVENT,
     });
-    console.log(process.env);
     const parsedBody = JSON.parse(event.body);
     const validateRequest = validateSchema(loginSchema, parsedBody);
     if (validateRequest.isError) {
