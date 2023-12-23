@@ -9,9 +9,6 @@ export const TeacherModel = (schoolId) => {
   }
   const teacherSchema = new Schema(
     {
-      schoolId: {
-        type: Number,
-      },
       house: {
         type: String,
       },
@@ -74,9 +71,6 @@ export const TeacherModel = (schoolId) => {
         country: {
           type: String,
         },
-        countryCode: {
-          type: String,
-        },
       },
       permanentAddress: {
         addressLine1: {
@@ -97,16 +91,15 @@ export const TeacherModel = (schoolId) => {
         country: {
           type: String,
         },
-        countryCode: {
-          type: String,
-        },
       },
-      experience: [
-        {
-          type: String,
-        },
-      ],
+      // in years
+      experience: {
+        type: String,
+      },
       medicalHistory: {
+        type: String,
+      },
+      createdBy: {
         type: String,
       },
     },

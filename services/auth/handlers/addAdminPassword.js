@@ -28,21 +28,67 @@ export const addAdminPassword = async (event) => {
       });
       return badRequest(validateRequest.message);
     }
-    let dbQuery = {
-      actionType: AUTH_CONSTANT.ACTION_TYPE.GET_SCHOOL_BY_ID,
-      query: parsedBody.schoolId,
-    };
-    const schooldata = await main(dbQuery);
-    if (schooldata.isSuccess) {
-      if (schooldata.data.enlisterEmail !== parsedBody.emailId.toLowerCase()) {
-        return failResponse(404, AUTH_CONSTANT.ERROR_MESSAGES.USER_NOT_FOUND);
+    switch (parsedBody.userType) {
+      case GLOBAL_CONSTANT.USER_TYPE.ADMIN: {
+        let dbQuery = {
+          actionType: AUTH_CONSTANT.ACTION_TYPE.GET_SCHOOL_BY_ID,
+          query: parsedBody.schoolId,
+        };
+        const schooldata = await main(dbQuery);
+        if (schooldata.isSuccess) {
+          if (
+            schooldata.data.enlisterEmail !== parsedBody.emailId.toLowerCase()
+          ) {
+            return failResponse(
+              404,
+              AUTH_CONSTANT.ERROR_MESSAGES.USER_NOT_FOUND
+            );
+          }
+        } else {
+          return failResponse(
+            404,
+            AUTH_CONSTANT.ERROR_MESSAGES.SCHOOL_NOT_FOUND
+          );
+        }
+        dbQuery = {
+          actionType: AUTH_CONSTANT.ACTION_TYPE.GET_USER,
+          query: parsedBody,
+        };
+        const userData = await main(dbQuery);
+        if (userData.isSuccess) {
+          return failResponse(
+            400,
+            AUTH_CONSTANT.ERROR_MESSAGES.USER_ALREADY_REGISTERED
+          );
+        }
+        break;
       }
-    } else {
-      return failResponse(404, AUTH_CONSTANT.ERROR_MESSAGES.SCHOOL_NOT_FOUND);
+      case GLOBAL_CONSTANT.USER_TYPE.TEACHER: {
+        let dbQuery = {
+          actionType: AUTH_CONSTANT.ACTION_TYPE.GET_USER,
+          query: parsedBody,
+        };
+        const userData = await main(dbQuery);
+        if (userData.isSuccess) {
+          return failResponse(
+            400,
+            AUTH_CONSTANT.ERROR_MESSAGES.USER_ALREADY_REGISTERED
+          );
+        }
+        dbQuery = {
+          actionType: AUTH_CONSTANT.ACTION_TYPE.GET_TEACHER_BY_EMAIL,
+          query: parsedBody,
+        };
+        const TeacherData = await main(dbQuery);
+        if (!TeacherData.isSuccess) {
+          return failResponse(404, AUTH_CONSTANT.ERROR_MESSAGES.USER_NOT_FOUND);
+        }
+        break;
+      }
     }
     const otp = process.env.stage === "prod" ? getOtp() : "123456";
     parsedBody["otp"] = otp;
-    dbQuery = {
+    let dbQuery = {
       actionType: AUTH_CONSTANT.ACTION_TYPE.SAVE_OTP,
       query: parsedBody,
     };

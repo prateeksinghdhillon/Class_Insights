@@ -12,6 +12,7 @@ export const AUTH_CONSTANT = {
     VERIFY_OTP: "verifyOtp",
     SAVE_PASSWORD: "savePassword",
     GET_USER: "getUser",
+    GET_TEACHER_BY_EMAIL: "getTeacherByEmail",
   },
   ERROR_MESSAGES: {
     USER_NOT_FOUND: "User not found",
@@ -21,6 +22,7 @@ export const AUTH_CONSTANT = {
     WRONG_SCHOOL_ID: "Wrong school Id",
     WRONG_OTP: "Incorrect OTP",
     WRONG_PASSWORD: "Incorrect password",
+    USER_ALREADY_REGISTERED: "User Already registered",
   },
   SUCCESS_MESSAGES: {
     REGISTER_SUCCESS: "School registered successfully",

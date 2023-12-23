@@ -19,4 +19,9 @@ export const GLOBAL_CONSTANT = {
   },
   OTP_EXPIRE_TIME: "300s",
   SESSION_EXPIRE: 60 * 60 * 24,
+  USER_TYPE: {
+    TEACHER: "teacher",
+    ADMIN: "admin",
+    STUDENT: "student",
+  },
 };

@@ -14,6 +14,9 @@ const schema = new Schema(
     schoolId: {
       type: Number,
     },
+    userType: {
+      type: String,
+    },
     expireAt: {
       type: Date,
       default: Date.now,

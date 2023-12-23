@@ -2,6 +2,7 @@ import { GLOBAL_CONSTANT } from "../../../utilities/common/globalConstant";
 import { errorLog, infoLog } from "../../../utilities/logging/log";
 import { CLASS_CONSTANT } from "../common/constants";
 import { addClasses } from "./actionHandler/addClasses";
+import { addTeacher, getTeacherByDetails } from "./actionHandler/addTeachers";
 import { getClass } from "./actionHandler/getClass";
 import { makeDBConnection } from "./connection";
 
@@ -30,5 +31,9 @@ const processEvent = async (event) => {
       return getClass(event);
     case CLASS_CONSTANT.ACTION_TYPE.ADD_CLASS:
       return addClasses(event);
+    case CLASS_CONSTANT.ACTION_TYPE.GET_TEACHER_BY_DETAILS:
+      return getTeacherByDetails(event);
+    case CLASS_CONSTANT.ACTION_TYPE.ADD_TEACHER:
+      return addTeacher(event);
   }
 };

@@ -3,7 +3,7 @@ import { errorLog, infoLog } from "../../../utilities/logging/log";
 import { AUTH_CONSTANT } from "../common/constants";
 import { getOtpDetails } from "./actionHandler/getOtpDetails";
 import { getSchoolById } from "./actionHandler/getSchoolById";
-import { getUser } from "./actionHandler/getUser";
+import { getTeacherByEmail, getUser } from "./actionHandler/getUser";
 import { saveOtp } from "./actionHandler/saveOtp";
 import { savePassword } from "./actionHandler/savePassword";
 import { saveRegisterSchool } from "./actionHandler/saveRegisterSchool";
@@ -42,5 +42,7 @@ const processEvent = async (event) => {
       return savePassword(event);
     case AUTH_CONSTANT.ACTION_TYPE.GET_USER:
       return getUser(event);
+    case AUTH_CONSTANT.ACTION_TYPE.GET_TEACHER_BY_EMAIL:
+      return getTeacherByEmail(event);
   }
 };
