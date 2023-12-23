@@ -19,8 +19,8 @@ const schema = new Schema(
     },
     expireAt: {
       type: Date,
-      default: Date.now,
-      index: { expires: GLOBAL_CONSTANT.OTP_EXPIRE_TIME },
+      default: Date.now() + 5 * 60 * 1000,
+      index: { expires: "0s" },
     },
   },
   {

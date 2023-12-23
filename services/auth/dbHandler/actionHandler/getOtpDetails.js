@@ -18,7 +18,14 @@ export const getOtpDetails = async (event) => {
         { emailId: event.query.emailId },
       ],
     });
+    if (result) {
+      const createdAt = new Date(result.createdAt);
+      const expireAt = new Date(result.expireAt);
 
+      if (Math.abs(new Date() - createdAt) > Math.abs(expireAt - createdAt)) {
+        return { isSuccess: false };
+      }
+    }
     return result ? { isSuccess: true, data: result } : { isSuccess: false };
   } catch (err) {
     errorLog({
