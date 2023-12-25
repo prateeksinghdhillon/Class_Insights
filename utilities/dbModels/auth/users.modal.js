@@ -14,7 +14,10 @@ export const UserModel = (schoolId) => {
         type: Number,
       },
       userId: {
-        type: Number,
+        type: String,
+      },
+      userType: {
+        type: String,
       },
       role: {
         type: String,

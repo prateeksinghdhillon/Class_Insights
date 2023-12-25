@@ -50,6 +50,7 @@ export const addAdminPassword = async (event) => {
             AUTH_CONSTANT.ERROR_MESSAGES.SCHOOL_NOT_FOUND
           );
         }
+        parsedBody["userId"] = schooldata.data._id;
         dbQuery = {
           actionType: AUTH_CONSTANT.ACTION_TYPE.GET_USER,
           query: parsedBody,
@@ -83,6 +84,7 @@ export const addAdminPassword = async (event) => {
         if (!TeacherData.isSuccess) {
           return failResponse(404, AUTH_CONSTANT.ERROR_MESSAGES.USER_NOT_FOUND);
         }
+        parsedBody["userId"] = TeacherData.data._id;
         break;
       }
     }

@@ -34,7 +34,6 @@ export const verifyOtp = async (event) => {
       query: parsedBody,
     };
     const otpData = await main(dbQuery);
-    console.log(otpData);
 
     if (otpData.isSuccess) {
       if (otpData.data.otp !== parsedBody.otp) {
@@ -46,6 +45,7 @@ export const verifyOtp = async (event) => {
     const hasedPassword = await generatePBKDF2Hash(otpData.data.password);
     parsedBody["password"] = hasedPassword;
     parsedBody["userType"] = otpData.data.userType;
+    parsedBody["userId"] = otpData.data.userId;
     dbQuery = {
       actionType: AUTH_CONSTANT.ACTION_TYPE.SAVE_PASSWORD,
       query: parsedBody,
