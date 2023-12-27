@@ -21,9 +21,6 @@ export const getTeacherByDetails = async (event) => {
             {
               gender: event.query.gender,
             },
-            {
-              contactNumber: event.query.contactNumber,
-            },
           ],
         },
         {

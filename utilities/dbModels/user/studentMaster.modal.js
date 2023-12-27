@@ -9,15 +9,13 @@ export const StudentModel = (schoolId) => {
   }
   const studentSchema = new Schema(
     {
-      schoolId: {
-        type: Number,
-      },
       house: {
         type: String,
       },
       emailId: {
         type: String,
       },
+      initialPassword: { type: String },
       photo: { type: String },
       name: {
         type: String,
@@ -43,6 +41,9 @@ export const StudentModel = (schoolId) => {
         type: String,
       },
       guardianContactNumber: {
+        type: String,
+      },
+      guardianEmail: {
         type: String,
       },
       currentAdressSameAsPermanent: {
@@ -100,7 +101,6 @@ export const StudentModel = (schoolId) => {
       fatherName: {
         type: String,
       },
-
       skills: [
         {
           type: String,
@@ -112,6 +112,7 @@ export const StudentModel = (schoolId) => {
         },
       ],
       isQuit: {
+        default: false,
         type: Boolean,
       },
       modeOfTransport: {
@@ -124,6 +125,9 @@ export const StudentModel = (schoolId) => {
         type: String,
       },
       weight: {
+        type: String,
+      },
+      createdBy: {
         type: String,
       },
     },

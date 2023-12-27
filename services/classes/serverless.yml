@@ -88,5 +88,23 @@ functions:
             headers:
               X-Content-Type-Options: "'nosniff'"
               Access-Control-Allow-Origin: "'*'"
+  addStudent:
+    handler: handlers/addStudent.addStudent
+    events:
+      - http:
+          path: ${self:provider.environment.serviceUrlIdentifier}/addStudent
+          method: post
+          cors: true
+          # authorizer: authorizerFunc                            #NOTE:-uncomment it for local
+          authorizer:                                      
+            type: ${self:provider.environment.authorizerType}
+            arn: ${self:provider.environment.authorizerArn}
+            resultTtlInSeconds: ${self:provider.environment.authorizerResultTtlInSeconds}
+            identitySource: ${self:provider.environment.authorizerIdentitySource}
+          response:
+            headers:
+              X-Content-Type-Options: "'nosniff'"
+              Access-Control-Allow-Origin: "'*'"
+
   # authorizerFunc:                                                                #NOTE:-uncomment it for local
   #   handler: ../auth/authHandler/authorizer.main

@@ -4,15 +4,12 @@ const key = process.env.key;
 
 export const main = async (event) => {
   try {
-    console.log(process.env);
     if (!event.headers.Authorization) {
       throw "Unauthorised";
     } else {
       // let token = event.authorizationToken.includes('Bearer') ?event.authorizationToken.split(' ')[1]:event.authorizationToken;
       let token = event.headers.Authorization;
       let decode = JWT.verify(token, key);
-      console.log(decode);
-
       return {
         principalId: decode.emailId,
         policyDocument: generatePolicy("Allow", "execute-api:Invoke", "*"),
