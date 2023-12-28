@@ -1,6 +1,7 @@
 import { GLOBAL_CONSTANT } from "../../../utilities/common/globalConstant";
 import { errorLog, infoLog } from "../../../utilities/logging/log";
 import { AUTH_CONSTANT } from "../common/constants";
+import { changePassword } from "./actionHandler/changePassword";
 import { getOtpDetails } from "./actionHandler/getOtpDetails";
 import { getSchoolById } from "./actionHandler/getSchoolById";
 import { getTeacherByEmail, getUser } from "./actionHandler/getUser";
@@ -44,5 +45,7 @@ const processEvent = async (event) => {
       return getUser(event);
     case AUTH_CONSTANT.ACTION_TYPE.GET_TEACHER_BY_EMAIL:
       return getTeacherByEmail(event);
+    case AUTH_CONSTANT.ACTION_TYPE.CHANGE_PASSWORD:
+      return changePassword(event);
   }
 };

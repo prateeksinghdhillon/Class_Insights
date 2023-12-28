@@ -14,9 +14,8 @@ export const getUser = async (event) => {
     });
     event.query.emailId = event.query.emailId.toLowerCase();
     const result = await UserModel(event.query.schoolId).findOne({
-      $and: [{ emailId: event.query.emailId }],
+      emailId: event.query.emailId,
     });
-
     return result ? { isSuccess: true, data: result } : { isSuccess: false };
   } catch (err) {
     errorLog({

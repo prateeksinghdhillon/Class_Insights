@@ -71,44 +71,34 @@ export const addStudent = async (event) => {
       "_" +
       event.query["dob"].substring(6, 8) +
       event.query["dob"].substring(4, 6);
-    console.log(event.query["emailId"]);
     let emailFound = true;
     let c = 1;
-    console.log("isUniq", emailFound);
     while (emailFound) {
       emailFound =
         !(await StudentModel(event.schoolId).findOne({
           emailId: event.query.emailId,
         }).length) === 0;
-      console.log(emailFound);
       event.query["emailId"] =
         event.query["emailId"].split("_")[0] +
         c +
         "_" +
         event.query["emailId"].split("_")[1];
       c += 1;
-      console.log(event.query["emailId"]);
     }
     event.query["initialPassword"] = generateRandomPassword(8);
-    console.log("password.........");
-    console.log(event.query["initialPassword"]);
     event.query["createdBy"] = event.principalId;
-    console.log(event.query);
     const result = await StudentModel(event.schoolId).create(event.query);
-    console.log("result------", result);
     let userRes;
     if (result) {
       const user = {
         schoolId: event.schoolId,
-        emailId: result.emailId,
+        emailId: result.emailId.toLowerCase(),
         role: "student",
         userId: result._id,
         userType: "student",
         password: await generatePBKDF2Hash(result.initialPassword),
       };
-      console.log(user);
       userRes = await UserModel(event.schoolId).create(user);
-      console.log(userRes);
     }
     return result && userRes
       ? { isSuccess: true, data: result }

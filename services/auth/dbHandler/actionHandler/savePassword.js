@@ -12,6 +12,7 @@ export const savePassword = async (event) => {
       data: event,
       message: GLOBAL_CONSTANT.INFO_MESSAGES.ACTION_HANDLER,
     });
+    event.query.emailId = event.query.emailId.toLowerCase();
     if (event.query.userType === GLOBAL_CONSTANT.USER_TYPE.ADMIN) {
       const result = await RegisteredSchools.findOneAndUpdate(
         {

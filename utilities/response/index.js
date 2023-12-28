@@ -10,7 +10,6 @@ export const successResponse = (message, data = []) => {
 };
 
 export const badRequest = (message) => {
-  console.log(message);
   let response = {
     body: JSON.stringify({
       message: message,

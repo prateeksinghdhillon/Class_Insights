@@ -4,6 +4,7 @@ export const AUTH_CONSTANT = {
     ADD_ADMIN_PASSWORD: "addAdminPassword",
     VERIFY_OTP: "verifyOtp",
     LOGIN: "login",
+    CHANGE_PASSWORD: "changePassword",
   },
   ACTION_TYPE: {
     REGISTER_SCHOOL: "registerSchool",
@@ -13,6 +14,7 @@ export const AUTH_CONSTANT = {
     SAVE_PASSWORD: "savePassword",
     GET_USER: "getUser",
     GET_TEACHER_BY_EMAIL: "getTeacherByEmail",
+    CHANGE_PASSWORD: "changePassword",
   },
   ERROR_MESSAGES: {
     USER_NOT_FOUND: "User not found",
@@ -23,6 +25,9 @@ export const AUTH_CONSTANT = {
     WRONG_OTP: "Incorrect OTP",
     WRONG_PASSWORD: "Incorrect password",
     USER_ALREADY_REGISTERED: "User Already registered",
+    WORNG_PASSWORD: "Wrong old password",
+    PASSWORD_MISMATCH: "New password and confirm password do not match",
+    SAME_PASSWORD: "new password can not be same as old password",
   },
   SUCCESS_MESSAGES: {
     REGISTER_SUCCESS: "School registered successfully",
