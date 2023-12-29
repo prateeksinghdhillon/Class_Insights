@@ -46,6 +46,7 @@ export const verifyOtp = async (event) => {
     parsedBody["password"] = hasedPassword;
     parsedBody["userType"] = otpData.data.userType;
     parsedBody["userId"] = otpData.data.userId;
+    parsedBody["tag"] = otpData.data.tag;
     dbQuery = {
       actionType: AUTH_CONSTANT.ACTION_TYPE.SAVE_PASSWORD,
       query: parsedBody,

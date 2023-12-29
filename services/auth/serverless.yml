@@ -120,6 +120,17 @@ functions:
             headers:
               X-Content-Type-Options: "'nosniff'"
               Access-Control-Allow-Origin: "'*'"
+  forgetPassword:
+    handler: handlers/forgetPassword.forgetPassword
+    events:
+      - http:
+          path: ${self:provider.environment.serviceUrlIdentifier}/forgetPassword
+          method: post
+          cors: true
+          response:
+            headers:
+              X-Content-Type-Options: "'nosniff'"
+              Access-Control-Allow-Origin: "'*'"
               
   authorizerFunc:
     handler: authHandler/authorizer.main

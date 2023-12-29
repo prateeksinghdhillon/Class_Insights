@@ -2,6 +2,13 @@ import { Schema, model } from "mongoose";
 import { GLOBAL_CONSTANT } from "../../common/globalConstant";
 const schema = new Schema(
   {
+    tag: {
+      type: String,
+      enum: [
+        GLOBAL_CONSTANT.OTP_TAG.FORGET_PASSWORD,
+        GLOBAL_CONSTANT.OTP_TAG.REGISTER,
+      ],
+    },
     otp: {
       type: String,
     },
@@ -22,7 +29,7 @@ const schema = new Schema(
     },
     expireAt: {
       type: Date,
-      default: Date.now() + 5 * 60 * 1000,
+      default: Date.now() + GLOBAL_CONSTANT.OTP_EXPIRE_TIME,
       index: { expires: "0s" },
     },
   },

@@ -12,7 +12,7 @@ export const changePassword = async (event) => {
       message: GLOBAL_CONSTANT.INFO_MESSAGES.ACTION_HANDLER,
     });
     event.query.emailId = event.query.emailId.toLowerCase();
-    const result = await UserModel(event.schoolId).updateOne(
+    const result = await UserModel(event.schoolId).findOneAndUpdate(
       {
         emailId: event.query.emailId,
       },
@@ -20,6 +20,9 @@ export const changePassword = async (event) => {
         $set: {
           password: event.query.password,
         },
+      },
+      {
+        new: true,
       }
     );
     return result ? { isSuccess: true, data: result } : { isSuccess: false };

@@ -5,6 +5,7 @@ export const AUTH_CONSTANT = {
     VERIFY_OTP: "verifyOtp",
     LOGIN: "login",
     CHANGE_PASSWORD: "changePassword",
+    FORGET_PASSWORD: "forgetPassword",
   },
   ACTION_TYPE: {
     REGISTER_SCHOOL: "registerSchool",

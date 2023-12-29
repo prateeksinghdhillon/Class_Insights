@@ -37,7 +37,7 @@ export const changePassword = async (event) => {
     let dbQuery = {
       actionType: AUTH_CONSTANT.ACTION_TYPE.GET_USER,
       query: {
-        emailId: "abhinavln@gmail.com",
+        emailId: event.requestContext.authorizer.emailId,
         schoolId: event.requestContext.authorizer.schoolId,
       },
     };

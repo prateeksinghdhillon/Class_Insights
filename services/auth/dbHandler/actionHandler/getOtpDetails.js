@@ -19,10 +19,10 @@ export const getOtpDetails = async (event) => {
       ],
     });
     if (result) {
-      const createdAt = new Date(result.createdAt);
+      const updatedAt = new Date(result.updatedAt);
       const expireAt = new Date(result.expireAt);
 
-      if (Math.abs(new Date() - createdAt) > Math.abs(expireAt - createdAt)) {
+      if (Math.abs(new Date() - updatedAt) > Math.abs(expireAt - updatedAt)) {
         return { isSuccess: false };
       }
     }

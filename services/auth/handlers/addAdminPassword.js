@@ -89,6 +89,7 @@ export const addAdminPassword = async (event) => {
       }
     }
     const otp = process.env.stage === "prod" ? getOtp() : "123456";
+    parsedBody["tag"] = GLOBAL_CONSTANT.OTP_TAG.REGISTER;
     parsedBody["otp"] = otp;
     let dbQuery = {
       actionType: AUTH_CONSTANT.ACTION_TYPE.SAVE_OTP,

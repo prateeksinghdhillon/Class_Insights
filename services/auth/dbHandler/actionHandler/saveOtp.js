@@ -14,7 +14,16 @@ export const saveOtp = async (event) => {
 
     //transformation
     event.query.emailId = event.query.emailId.toLowerCase();
-    const result = await OtpStore.create(event.query);
+    const result = await OtpStore.findOneAndUpdate(
+      {
+        emailId: event.query.emailId,
+      },
+      {
+        ...event.query,
+        expireAt: new Date(Date.now() + GLOBAL_CONSTANT.OTP_EXPIRE_TIME), // Update expireAt to 5 minutes from now
+      },
+      { new: true, upsert: true }
+    );
 
     return result ? { isSuccess: true } : { isSuccess: false };
   } catch (err) {
