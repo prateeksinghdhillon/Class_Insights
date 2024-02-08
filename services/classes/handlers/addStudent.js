@@ -17,6 +17,7 @@ export const addStudent = async (event) => {
       data: event,
       message: GLOBAL_CONSTANT.INFO_MESSAGES.EVENT,
     });
+    console.log(event.requestContext);
     if (event.requestContext.authorizer.role !== "admin") {
       return failResponse(403, GLOBAL_CONSTANT.ERROR_MESSAGES.ACTION_FORBIDDED);
     }

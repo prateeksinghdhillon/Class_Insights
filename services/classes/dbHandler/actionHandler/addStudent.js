@@ -4,7 +4,7 @@ import {
   generateRandomPassword,
 } from "../../../../utilities/crypto";
 import { UserModel } from "../../../../utilities/dbModels/auth/users.modal";
-import { StudentModel } from "../../../../utilities/dbModels/user/studentmaster.modal";
+import { StudentModel } from "../../../../utilities/dbModels/user/studentMaster.modal";
 import { errorLog, infoLog } from "../../../../utilities/logging/log";
 import { internalServer } from "../../../../utilities/response";
 

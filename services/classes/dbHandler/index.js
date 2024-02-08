@@ -5,6 +5,8 @@ import { addClasses } from "./actionHandler/addClasses";
 import { addStudent, getStudentByDetails } from "./actionHandler/addStudent";
 import { addTeacher, getTeacherByDetails } from "./actionHandler/addTeachers";
 import { getClass } from "./actionHandler/getClass";
+import { getStudents } from "./actionHandler/getStudents";
+import { getTeachers } from "./actionHandler/getTeachers";
 import { makeDBConnection } from "./connection";
 
 export async function main(event) {
@@ -40,5 +42,9 @@ const processEvent = async (event) => {
       return getStudentByDetails(event);
     case CLASS_CONSTANT.ACTION_TYPE.ADD_STUDENT:
       return addStudent(event);
+    case CLASS_CONSTANT.ACTION_TYPE.GET_TEACHERS:
+      return getTeachers(event);
+    case CLASS_CONSTANT.ACTION_TYPE.GET_STUDENTS:
+      return getStudents(event);
   }
 };
