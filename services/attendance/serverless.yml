@@ -1,4 +1,4 @@
-service: class-insights-staticContent
+service: class-insights-attendance
 #file: noinspection YAMLSchemaValidation,YAMLSchemaValidation,YAMLSchemaValidation,YAMLSchemaValidation
 frameworkVersion: "3"
 version: 1.0.1
@@ -11,7 +11,7 @@ plugins:
   - serverless-offline
   - serverless-bundle
   - serverless-dotenv-plugin
-	
+
 custom:
   dotenv:
     # default: project root
@@ -26,12 +26,10 @@ provider:
   memorySize: ${self:commonData.serverlessConfiguration.environment.stageSpecificData.${self:provider.environment.stage}.defaultMemorySize}
   timeout: ${self:commonData.serverlessConfiguration.timeout}
 
-  
-
   environment:
     stage: ${self:commonData.serverlessConfiguration.stage}
     accountRegion: ${self:commonData.serverlessConfiguration.region}
-    serviceUrlIdentifier: classes
+    serviceUrlIdentifier: attendance
     authorizerType: ${self:commonData.serverlessConfiguration.environment.authorizerType}
     authorizerArn: ${self:commonData.serverlessConfiguration.environment.stageSpecificData.${self:provider.environment.stage}.authorizerArn}
     authorizerResultTtlInSeconds: ${self:commonData.serverlessConfiguration.environment.authorizerResultTtlInSeconds}
@@ -56,20 +54,23 @@ provider:
       Resource: "*"
 
 functions:
-  addClass:
-    handler: handlers/addClass.addClass
+  takeAttendance:
+    handler: handlers/takeAttendance.takeAttendance
     events:
       - http:
-          path: ${self:provider.environment.serviceUrlIdentifier}/addClasses
+          path: ${self:provider.environment.serviceUrlIdentifier}/takeAttendance
           method: post
           cors: true
-          # authorizer: authorizerFunc                            #NOTE:-uncomment it for local
-          authorizer:                                      
-            type: ${self:provider.environment.authorizerType}
-            arn: ${self:provider.environment.authorizerArn}
-            resultTtlInSeconds: ${self:provider.environment.authorizerResultTtlInSeconds}
-            identitySource: ${self:provider.environment.authorizerIdentitySource}
+          authorizer: authorizerFunc #NOTE:-uncomment it for local
+          # authorizer:
+          #   type: ${self:provider.environment.authorizerType}
+          #   arn: ${self:provider.environment.authorizerArn}
+          #   resultTtlInSeconds: ${self:provider.environment.authorizerResultTtlInSeconds}
+          #   identitySource: ${self:provider.environment.authorizerIdentitySource}
           response:
             headers:
               X-Content-Type-Options: "'nosniff'"
               Access-Control-Allow-Origin: "'*'"
+
+  authorizerFunc:
+    handler: ../auth/authHandler/authorizer.main
