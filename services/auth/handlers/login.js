@@ -58,7 +58,7 @@ export const login = async (event) => {
     };
 
     return successResponse(
-      AUTH_CONSTANT.SUCCESS_MESSAGES.PASSWORD_CHANGED,
+      AUTH_CONSTANT.SUCCESS_MESSAGES.LOGGED_IN,
       response
     );
   } catch (err) {

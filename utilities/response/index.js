@@ -1,6 +1,9 @@
 export const successResponse = (message, data = []) => {
   let response = {
     statusCode: 200,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+  },
     body: JSON.stringify({
       message: message,
       data: data,
@@ -14,6 +17,9 @@ export const badRequest = (message) => {
     body: JSON.stringify({
       message: message,
     }),
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+  },
     statusCode: 400,
   };
   return response;
@@ -32,6 +38,9 @@ export const internalServer = (message) => {
     body: JSON.stringify({
       message: message,
     }),
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+  },
     statusCode: 500,
   };
   return response;
@@ -39,6 +48,9 @@ export const internalServer = (message) => {
 export function failResponse(statusCode, message, data = []) {
   let response = {
     statusCode: statusCode,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+  },
     body: JSON.stringify({
       message: message,
       data: data,
