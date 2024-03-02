@@ -71,6 +71,23 @@ functions:
             headers:
               X-Content-Type-Options: "'nosniff'"
               Access-Control-Allow-Origin: "'*'"
+  viewAttendance:
+    handler: handlers/viewAttendance.viewAttendance
+    events:
+      - http:
+          path: ${self:provider.environment.serviceUrlIdentifier}/viewAttendance
+          method: get
+          cors: true
+          # authorizer: authorizerFunc #NOTE:-uncomment it for local
+          authorizer:
+            type: ${self:provider.environment.authorizerType}
+            arn: ${self:provider.environment.authorizerArn}
+            resultTtlInSeconds: ${self:provider.environment.authorizerResultTtlInSeconds}
+            identitySource: ${self:provider.environment.authorizerIdentitySource}
+          response:
+            headers:
+              X-Content-Type-Options: "'nosniff'"
+              Access-Control-Allow-Origin: "'*'"
 
-  authorizerFunc:
-    handler: ../auth/authHandler/authorizer.main
+  # authorizerFunc:
+  #   handler: ../auth/authHandler/authorizer.main

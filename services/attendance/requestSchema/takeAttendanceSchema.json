@@ -7,7 +7,7 @@
         },
         "date": {
             "type": "string",
-            "pattern": "^[0-9]{14}$"
+            "pattern": "^[0-9]{8}$"
         },
         "session": {
             "type": "string"

@@ -2,6 +2,7 @@ import { GLOBAL_CONSTANT } from "../../../utilities/common/globalConstant";
 import { errorLog, infoLog } from "../../../utilities/logging/log";
 import { ATTENDANCE_CONSTANT } from "../common/constants";
 import { addAttendance } from "./actionHandler/addAttendance";
+import { getAttendance } from "./actionHandler/getAttendance";
 import { makeDBConnection } from "./connection";
 
 export async function main(event) {
@@ -27,5 +28,7 @@ const processEvent = async (event) => {
   switch (event.actionType) {
     case ATTENDANCE_CONSTANT.ACTION_TYPE.ADD_ATTENDANCE:
       return addAttendance(event);
+      case ATTENDANCE_CONSTANT.ACTION_TYPE.GET_ATTENDANCE:
+        return getAttendance(event);
   }
 };

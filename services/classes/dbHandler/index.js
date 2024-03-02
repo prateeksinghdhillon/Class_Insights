@@ -1,8 +1,10 @@
 import { GLOBAL_CONSTANT } from "../../../utilities/common/globalConstant";
 import { errorLog, infoLog } from "../../../utilities/logging/log";
 import { CLASS_CONSTANT } from "../common/constants";
+import { addStudentsToClass } from "./actionHandler/addStudentsToClass";
 import { addClasses } from "./actionHandler/addClasses";
 import { addStudent, getStudentByDetails } from "./actionHandler/addStudent";
+import { getStudentsByClass } from "./actionHandler/getStudentsByClass";
 import { addTeacher, getTeacherByDetails } from "./actionHandler/addTeachers";
 import { getClass } from "./actionHandler/getClass";
 import { getStudents } from "./actionHandler/getStudents";
@@ -46,5 +48,9 @@ const processEvent = async (event) => {
       return getTeachers(event);
     case CLASS_CONSTANT.ACTION_TYPE.GET_STUDENTS:
       return getStudents(event);
+      case CLASS_CONSTANT.ACTION_TYPE.GET_STUDENTS_BY_CLASS:
+        return getStudentsByClass(event);
+        case CLASS_CONSTANT.ACTION_TYPE.ADD_STUDENTS_TO_CLASS:
+      return addStudentsToClass(event);
   }
 };

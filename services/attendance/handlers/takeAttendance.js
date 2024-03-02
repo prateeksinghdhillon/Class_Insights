@@ -22,7 +22,7 @@ export const takeAttendance = async (event) => {
       data: event,
       message: GLOBAL_CONSTANT.INFO_MESSAGES.EVENT,
     });
-    if (event.requestContext.authorizer.role !== "admin"||event.requestContext.authorizer.role !== "teacher") {
+    if (event.requestContext.authorizer.role !== "admin" && event.requestContext.authorizer.role !== "teacher") {
       return failResponse(403, GLOBAL_CONSTANT.ERROR_MESSAGES.ACTION_FORBIDDED);
     }
     if (!event.requestContext.authorizer.schoolId) {
@@ -38,11 +38,11 @@ export const takeAttendance = async (event) => {
       });
       return badRequest(validateRequest.message);
     }
-    if (parsedBody.data > formatDate(new Date(), dateFormats.YYYYMMDDHHmmss)) {
+    if (parsedBody.data > formatDate(new Date(), dateFormats.YYYYMMDD)) {
       failResponse(400, ATTENDANCE_CONSTANT.ERROR_MESSAGES.FUTURE_DATE);
     } else if (
       parsedBody.data <
-      subtractDate(new Date(), 2, "days", dateFormats.YYYYMMDDHHmmss)
+      subtractDate(new Date(), 2, "days", dateFormats.YYYYMMDD)
     ) {
       failResponse(400, ATTENDANCE_CONSTANT.ERROR_MESSAGES.PAST_DATE);
     }
