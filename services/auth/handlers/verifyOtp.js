@@ -39,10 +39,13 @@ export const verifyOtp = async (event) => {
       if (otpData.data.otp !== parsedBody.otp) {
         return failResponse(404, AUTH_CONSTANT.ERROR_MESSAGES.WRONG_OTP);
       }
+      if(parsedBody['newPassword']!==parsedBody['confirmNewPassword']){
+        return failResponse(404, AUTH_CONSTANT.ERROR_MESSAGES.PASSWORD_MISMATCH);
+      }
     } else {
       return failResponse(404, AUTH_CONSTANT.ERROR_MESSAGES.WRONG_OTP);
     }
-    const hasedPassword = await generatePBKDF2Hash(otpData.data.password);
+    const hasedPassword = await generatePBKDF2Hash(parsedBody['newPassword']);
     parsedBody["password"] = hasedPassword;
     parsedBody["userType"] = otpData.data.userType;
     parsedBody["userId"] = otpData.data.userId;

@@ -18,9 +18,6 @@ const schema = new Schema(
     userId: {
       type: String,
     },
-    password: {
-      type: String,
-    },
     schoolId: {
       type: Number,
     },

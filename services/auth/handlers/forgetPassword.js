@@ -28,9 +28,6 @@ export const forgetPassword = async (event) => {
       });
       return badRequest(validateRequest.message);
     }
-    if (parsedBody.newPassword != parsedBody.confirmNewPassword) {
-      return failResponse(400, AUTH_CONSTANT.ERROR_MESSAGES.PASSWORD_MISMATCH);
-    }
     let dbQuery = {
       actionType: AUTH_CONSTANT.ACTION_TYPE.GET_USER,
       query: parsedBody,
@@ -45,7 +42,6 @@ export const forgetPassword = async (event) => {
       otp: otp,
       emailId: parsedBody.emailId,
       userId: userData.data.userId,
-      password: parsedBody.newPassword,
       schoolId: parsedBody.schoolId,
       userType: userData.data.userType,
     };
