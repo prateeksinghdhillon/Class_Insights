@@ -1,0 +1,44 @@
+{
+    "$schema": "http://json-schema.org/schema#",
+    "type": "object",
+    "properties": {
+        "classId": {
+            "type": "string"
+        },
+        "date": {
+            "type": "string",
+            "pattern": "^[0-9]{8}$"
+        },
+        "session": {
+            "type": "string"
+        },
+        "attendanceRecords": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "studentId": {
+                        "type": "string"
+                    },
+                    "status": {
+                        "type": "string",
+                        "enum": [
+                            "Present",
+                            "Absent"
+                        ]
+                    }
+                },
+                "required": [
+                    "studentId",
+                    "status"
+                ]
+            }
+        }
+    },
+    "required": [
+        "classId",
+        "date",
+        "session",
+        "attendanceRecords"
+    ]
+}
